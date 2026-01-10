@@ -30,6 +30,7 @@ jobs:
     - name: Codecov'a yükle
       uses: codecov/codecov-action@v5
       with:
+        token: ${{ secrets.CODECOV_TOKEN }}
         file: ./coverage.xml
         flags: unittests
         name: codecov-umbrella
