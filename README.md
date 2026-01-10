@@ -2,6 +2,8 @@
 
 Yazılım Kalite Güvencesi ve Testi Dönem Sonu Projesi
 
+![codecov](https://codecov.io/gh/obugtekin/BIM539-api/branch/master/graph/badge.svg)
+
 ## Proje Hakkında
 
 Bu ödev, en az 5 farklı kaynak içeren bir REST API uygulamasıdır. API, kullanıcılar, kategoriler, ürünler, siparişler ve yorumlar gibi kaynakları yönetmek için tasarlanmıştır.
