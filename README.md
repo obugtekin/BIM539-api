@@ -2,6 +2,7 @@
 
 Yazılım Kalite Güvencesi ve Testi Dönem Sonu Projesi
 
+![GitHub Actions](https://github.com/obugtekin/BIM539-api/workflows/CI%20Tests/badge.svg)
 ![codecov](https://codecov.io/gh/obugtekin/BIM539-api/branch/master/graph/badge.svg)
 
 ## Proje Hakkında
@@ -25,9 +26,16 @@ api_new/
 │   ├── products.py
 │   ├── orders.py
 │   └── reviews.py
+├── tests/
+│   ├── test_models.py
+│   ├── test_integration.py
+│   ├── test_system.py
+│   ├── test_validation.py
+│   └── test_categories_basic.py
 ├── database.py       
 ├── models.py         
 ├── main.py           
+├── pytest.ini
 ├── requirements.txt  
 └── README.md         
 ```
@@ -43,7 +51,7 @@ api_new/
 
 1. Projeyi klonlayın veya indirin:
 ```bash
-git clone <repository-url>
+git clone https://github.com/obugtekin/BIM539-api.git
 cd api_new
 ```
 
