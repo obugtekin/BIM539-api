@@ -171,3 +171,98 @@ def test_get_review_by_id(client):
     response = client.get(f"/api/reviews/{review_id}")
     assert response.status_code == 200
 
+def test_update_user(client):
+    create_response = client.post(
+        "/api/users",
+        json={"name": "Test User", "email": "test5@example.com"}
+    )
+    user_id = create_response.json()["id"]
+    
+    response = client.patch(
+        f"/api/users/{user_id}",
+        json={"name": "Güncellenmiş Kullanıcı"}
+    )
+    assert response.status_code == 200
+
+def test_update_category(client):
+    create_response = client.post(
+        "/api/categories",
+        json={"name": "Test Kategori 5"}
+    )
+    category_id = create_response.json()["id"]
+    
+    response = client.patch(
+        f"/api/categories/{category_id}",
+        json={"name": "Güncellenmiş Kategori"}
+    )
+    assert response.status_code == 200
+
+def test_update_product(client):
+    category_response = client.post(
+        "/api/categories",
+        json={"name": "Test Kategori 6"}
+    )
+    category_id = category_response.json()["id"]
+    
+    product_response = client.post(
+        "/api/products",
+        json={"name": "Test Ürün 3", "price": 300.00, "category_id": category_id}
+    )
+    product_id = product_response.json()["id"]
+    
+    response = client.patch(
+        f"/api/products/{product_id}",
+        json={"price": 250.00}
+    )
+    assert response.status_code == 200
+
+def test_update_order(client):
+    user_response = client.post(
+        "/api/users",
+        json={"name": "Test User", "email": "test6@example.com"}
+    )
+    user_id = user_response.json()["id"]
+    
+    order_response = client.post(
+        "/api/orders",
+        json={"user_id": user_id, "total_amount": 1000.00}
+    )
+    order_id = order_response.json()["id"]
+    
+    response = client.patch(
+        f"/api/orders/{order_id}",
+        json={"status": "completed"}
+    )
+    assert response.status_code == 200
+
+def test_update_review(client):
+    user_response = client.post(
+        "/api/users",
+        json={"name": "Test User", "email": "test7@example.com"}
+    )
+    user_id = user_response.json()["id"]
+    
+    category_response = client.post(
+        "/api/categories",
+        json={"name": "Test Kategori 7"}
+    )
+    category_id = category_response.json()["id"]
+    
+    product_response = client.post(
+        "/api/products",
+        json={"name": "Test Ürün 4", "price": 400.00, "category_id": category_id}
+    )
+    product_id = product_response.json()["id"]
+    
+    review_response = client.post(
+        "/api/reviews",
+        json={"user_id": user_id, "product_id": product_id, "rating": 3}
+    )
+    review_id = review_response.json()["id"]
+    
+    response = client.patch(
+        f"/api/reviews/{review_id}",
+        json={"rating": 5}
+    )
+    assert response.status_code == 200
+
