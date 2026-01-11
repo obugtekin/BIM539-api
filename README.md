@@ -7,7 +7,7 @@ Yazılım Kalite Güvencesi ve Testi Dönem Sonu Projesi
 
 ## Proje Hakkında
 
-Bu ödev, en az 5 farklı kaynak içeren bir REST API uygulamasıdır. API, kullanıcılar, kategoriler, ürünler, siparişler ve yorumlar gibi kaynakları yönetmek için tasarlanmıştır.
+Bu ödev, 5 farklı kaynak içeren bir REST API uygulamasıdır. API, kullanıcılar, kategoriler, ürünler, siparişler ve yorumlar gibi kaynakları yönetmek için tasarlanmıştır.
 
 ## Kullanılan Teknolojiler
 
@@ -95,8 +95,8 @@ http://localhost:8000
 - `DELETE /api/categories/{category_id}` 
 
 #### 3. Products 
-- `GET /api/products` - 
-- `GET /api/products/{product_id}` - 
+- `GET /api/products`
+- `GET /api/products/{product_id}`  
 - `POST /api/products` 
 - `PATCH /api/products/{product_id}` 
 - `DELETE /api/products/{product_id}` 
@@ -222,6 +222,15 @@ API dokümantasyonu:
 ```
 http://localhost:8000/api-docs
 ```
+
+## Test Durumu
+
+- **Toplam Test Sayısı**: 47 test
+  - Birim Testler: 15 test
+  - Entegrasyon Testleri: 26 test
+  - Sistem Testleri: 5 test
+  - Validation Testleri: 5 test
+- **Code Coverage**: %87
 
 ## Test Çalıştırma
 
