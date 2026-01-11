@@ -266,3 +266,51 @@ def test_update_review(client):
     )
     assert response.status_code == 200
 
+def test_get_user_not_found_404(client):
+    response = client.get("/api/users/99999")
+    assert response.status_code == 404
+
+def test_get_product_not_found_404(client):
+    response = client.get("/api/products/99999")
+    assert response.status_code == 404
+
+def test_update_order_not_found_404(client):
+    response = client.patch(
+        "/api/orders/99999",
+        json={"status": "completed"}
+    )
+    assert response.status_code == 404
+
+def test_create_order_invalid_user_400(client):
+    response = client.post(
+        "/api/orders",
+        json={"user_id": 99999, "total_amount": 1000.00}
+    )
+    assert response.status_code == 400
+
+def test_create_product_invalid_category_400(client):
+    response = client.post(
+        "/api/products",
+        json={"name": "Test Ürün", "price": 100.00, "category_id": 99999}
+    )
+    assert response.status_code == 400
+
+def test_create_review_invalid_user_400(client):
+    category_response = client.post(
+        "/api/categories",
+        json={"name": "Test Kategori 8"}
+    )
+    category_id = category_response.json()["id"]
+    
+    product_response = client.post(
+        "/api/products",
+        json={"name": "Test Ürün 5", "price": 500.00, "category_id": category_id}
+    )
+    product_id = product_response.json()["id"]
+    
+    response = client.post(
+        "/api/reviews",
+        json={"user_id": 99999, "product_id": product_id, "rating": 5}
+    )
+    assert response.status_code == 400
+
