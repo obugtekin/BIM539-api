@@ -44,7 +44,7 @@ def create_user(user: UserCreate):
     cursor = db.cursor()
     try:
         cursor.execute(
-            "INSERT INTO users (name, email, phone) VALUES (?, ?, ?)",
+            "INSERT INTO users (name, email, phone, created_at, updated_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
             (user.name, user.email, user.phone)
         )
         db.commit()

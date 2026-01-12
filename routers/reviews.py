@@ -55,7 +55,7 @@ def create_review(review: ReviewCreate):
     
     try:
         cursor.execute(
-            "INSERT INTO reviews (user_id, product_id, rating, comment) VALUES (?, ?, ?, ?)",
+            "INSERT INTO reviews (user_id, product_id, rating, comment, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)",
             (review.user_id, review.product_id, review.rating, review.comment)
         )
         db.commit()

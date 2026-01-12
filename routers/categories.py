@@ -41,7 +41,7 @@ def create_category(category: CategoryCreate):
     cursor = db.cursor()
     try:
         cursor.execute(
-            "INSERT INTO categories (name, description) VALUES (?, ?)",
+            "INSERT INTO categories (name, description, created_at) VALUES (?, ?, CURRENT_TIMESTAMP)",
             (category.name, category.description)
         )
         db.commit()

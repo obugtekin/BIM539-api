@@ -53,7 +53,7 @@ def create_product(product: ProductCreate):
     
     try:
         cursor.execute(
-            "INSERT INTO products (name, description, price, stock, category_id) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO products (name, description, price, stock, category_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
             (product.name, product.description, product.price, product.stock, product.category_id)
         )
         db.commit()

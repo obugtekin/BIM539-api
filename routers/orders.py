@@ -49,7 +49,7 @@ def create_order(order: OrderCreate):
     
     try:
         cursor.execute(
-            "INSERT INTO orders (user_id, total_amount, status) VALUES (?, ?, ?)",
+            "INSERT INTO orders (user_id, total_amount, status, order_date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)",
             (order.user_id, order.total_amount, order.status)
         )
         db.commit()
