@@ -111,8 +111,11 @@ def delete_user(user_id: int):
         db.close()
         raise HTTPException(status_code=404, detail="Kullanıcı bulunamadı")
     
-    cursor.execute("DELETE FROM users WHERE id = ?", (user_id,))
-    db.commit()
-    db.close()
-    
-    return {"message": "Kullanıcı başarıyla silindi"}
+    try:
+        cursor.execute("DELETE FROM users WHERE id = ?", (user_id,))
+        db.commit()
+        db.close()
+        return {"message": "Kullanıcı başarıyla silindi"}
+    except Exception as e:
+        db.close()
+        raise HTTPException(status_code=400, detail="Silme hatası")

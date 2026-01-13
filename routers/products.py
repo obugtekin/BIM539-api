@@ -112,17 +112,21 @@ def update_product(product_id: int, product_update: ProductUpdate):
     else:
         final_category_id = current[5]
     
-    cursor.execute(
-        "UPDATE products SET name=?, description=?, price=?, stock=?, category_id=?, updated_at=CURRENT_TIMESTAMP WHERE id=?",
-        (final_name, final_description, final_price, final_stock, final_category_id, product_id)
-    )
-    db.commit()
-    
-    cursor.execute("SELECT * FROM products WHERE id = ?", (product_id,))
-    row = cursor.fetchone()
-    db.close()
-    return {"id": row[0], "name": row[1], "description": row[2], "price": row[3], 
-            "stock": row[4], "category_id": row[5], "created_at": row[6], "updated_at": row[7]}
+    try:
+        cursor.execute(
+            "UPDATE products SET name=?, description=?, price=?, stock=?, category_id=?, updated_at=CURRENT_TIMESTAMP WHERE id=?",
+            (final_name, final_description, final_price, final_stock, final_category_id, product_id)
+        )
+        db.commit()
+        
+        cursor.execute("SELECT * FROM products WHERE id = ?", (product_id,))
+        row = cursor.fetchone()
+        db.close()
+        return {"id": row[0], "name": row[1], "description": row[2], "price": row[3], 
+                "stock": row[4], "category_id": row[5], "created_at": row[6], "updated_at": row[7]}
+    except Exception as e:
+        db.close()
+        raise HTTPException(status_code=400, detail="Güncelleme hatası")
 
 @router.delete("/{product_id}", summary="Ürünü sil")
 def delete_product(product_id: int):
@@ -134,8 +138,11 @@ def delete_product(product_id: int):
         db.close()
         raise HTTPException(status_code=404, detail="Ürün bulunamadı")
     
-    cursor.execute("DELETE FROM products WHERE id = ?", (product_id,))
-    db.commit()
-    db.close()
-    
-    return {"message": "Ürün başarıyla silindi"}
+    try:
+        cursor.execute("DELETE FROM products WHERE id = ?", (product_id,))
+        db.commit()
+        db.close()
+        return {"message": "Ürün başarıyla silindi"}
+    except Exception as e:
+        db.close()
+        raise HTTPException(status_code=400, detail="Silme hatası")

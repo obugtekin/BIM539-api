@@ -101,8 +101,11 @@ def delete_category(category_id: int):
         db.close()
         raise HTTPException(status_code=404, detail="Kategori bulunamadı")
     
-    cursor.execute("DELETE FROM categories WHERE id = ?", (category_id,))
-    db.commit()
-    db.close()
-    
-    return {"message": "Kategori başarıyla silindi"}
+    try:
+        cursor.execute("DELETE FROM categories WHERE id = ?", (category_id,))
+        db.commit()
+        db.close()
+        return {"message": "Kategori başarıyla silindi"}
+    except Exception as e:
+        db.close()
+        raise HTTPException(status_code=400, detail="Silme hatası")

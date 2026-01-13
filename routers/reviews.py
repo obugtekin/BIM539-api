@@ -91,17 +91,21 @@ def update_review(review_id: int, review_update: ReviewUpdate):
     else:
         comment = current[4]
     
-    cursor.execute(
-        "UPDATE reviews SET rating=?, comment=? WHERE id=?",
-        (rating, comment, review_id)
-    )
-    db.commit()
-    
-    cursor.execute("SELECT * FROM reviews WHERE id = ?", (review_id,))
-    row = cursor.fetchone()
-    db.close()
-    return {"id": row[0], "user_id": row[1], "product_id": row[2], 
-            "rating": row[3], "comment": row[4], "created_at": row[5]}
+    try:
+        cursor.execute(
+            "UPDATE reviews SET rating=?, comment=? WHERE id=?",
+            (rating, comment, review_id)
+        )
+        db.commit()
+        
+        cursor.execute("SELECT * FROM reviews WHERE id = ?", (review_id,))
+        row = cursor.fetchone()
+        db.close()
+        return {"id": row[0], "user_id": row[1], "product_id": row[2], 
+                "rating": row[3], "comment": row[4], "created_at": row[5]}
+    except Exception as e:
+        db.close()
+        raise HTTPException(status_code=400, detail="Güncelleme hatası")
 
 @router.delete("/{review_id}", summary="Yorumu sil")
 def delete_review(review_id: int):
@@ -113,8 +117,11 @@ def delete_review(review_id: int):
         db.close()
         raise HTTPException(status_code=404, detail="Yorum bulunamadı")
     
-    cursor.execute("DELETE FROM reviews WHERE id = ?", (review_id,))
-    db.commit()
-    db.close()
-    
-    return {"message": "Yorum başarıyla silindi"}
+    try:
+        cursor.execute("DELETE FROM reviews WHERE id = ?", (review_id,))
+        db.commit()
+        db.close()
+        return {"message": "Yorum başarıyla silindi"}
+    except Exception as e:
+        db.close()
+        raise HTTPException(status_code=400, detail="Silme hatası")
