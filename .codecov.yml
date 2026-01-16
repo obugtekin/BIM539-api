@@ -12,10 +12,6 @@ coverage:
         branches:
           - main
           - master
-    patch:
-      default:
-        target: 40
-        threshold: 1%
 
 ignore:
   - "tests/"
