@@ -259,6 +259,12 @@ pytest tests/test_system.py
 - İlk çalıştırmada örnek veriler eklenir
 - Email adresleri ve kategori isimleri benzersiz olmalı
 
+---
+
+**ONUR BUĞTEKİN 4010930223**
+
+**BİM 539 YAZILIM KALİTE GÜVENCESİ VE TESTİ**
+
 
 
 
